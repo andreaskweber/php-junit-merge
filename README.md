@@ -45,7 +45,7 @@ A simple call could look like this:
     Found and processed 3 files. Wrote merged result in 'result.xml'.
     
 ## Attributions
-- Thanks to [Sebastian Bergmann](https://gist.github.com/sebastianbergmann) for his gist [merge-phpunit-xml.php](https://gist.github.com/sebastianbergmann/4405658), which was the base and inspired me to develop this library.
+Thanks to [Sebastian Bergmann](https://gist.github.com/sebastianbergmann) for his gist [merge-phpunit-xml.php](https://gist.github.com/sebastianbergmann/4405658), which was the base and inspired me to develop this library.
 
 ## Thoughts
 Built with love. Hope you'll enjoy.. :-)
