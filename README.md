@@ -42,7 +42,7 @@ A simple call could look like this:
     root@dev:~/projects/sample/vendor/bin ./phpjunitmerge src/Tests/Unit/Fixtures result.xml
     phpjunitmerge 1.0.0 by Andreas Weber
     
-    Found and processed 3 files. Wrote merged result in 'result.xml'.
+    Found and processed 3 files. Wrote merged content in 'result.xml'.
     
 ## Attributions
 Thanks to [Sebastian Bergmann](https://gist.github.com/sebastianbergmann) for his gist [merge-phpunit-xml.php](https://gist.github.com/sebastianbergmann/4405658), which was the base and inspired me to develop this library.
