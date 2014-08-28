@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Project" default="help">
+
+    <!-- ++++++++++++++++++++++++++++++++++++++++++ -->
+    <!-- | Init                                     -->
+    <!-- ++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <!-- Vars -->
+    <property name="basedir" value="."/>
+
+    <!-- Command help -->
+    <target name="help">
+        <echo message="Error: No command passed"/>
+        <echo message="The following commands are available:"/>
+        <echo message="|"/>
+        <echo message="|   +++ Build +++"/>
+        <echo message="|-- build                (Run the build)"/>
+        <echo message="|   |-- dependencies     (Install dependencies)"/>
+        <echo message="|   |-- tests            (Lint all files and run tests)"/>
+        <echo message="|   |-- metrics          (Generate quality metrics)"/>
+        <echo message="|-- cleanup              (Cleanup the build directory)"/>
+        <echo message="|"/>
+        <echo message="|   +++ Composer +++"/>
+        <echo message="|-- composer             -> composer-download, composer-install"/>
+        <echo message="|-- composer-download    (Downloads composer.phar to project)"/>
+        <echo message="|-- composer-install     (Install all dependencies)"/>
+        <echo message="|-- composer-update      (Update dependencies and generate new lockfile)"/>
+        <echo message="|"/>
+        <echo message="|   +++ Testing +++"/>
+        <echo message="|-- phpunit              -> phpunit-full"/>
+        <echo message="|-- phpunit-tests        (Run unit tests)"/>
+        <echo message="|-- phpunit-full         (Run unit tests and generate code coverage report / logs)"/>
+        <echo message="|"/>
+        <echo message="|   +++ Metrics +++"/>
+        <echo message="|-- phploc               (Generate lines of code metric)"/>
+        <echo message="|-- phpcpd               (Generate copy paste metric)"/>
+        <echo message="|-- phpcs                (Generate code sniffer metric)"/>
+        <echo message="|-- phpmd                (Generate mess detector metric)"/>
+        <echo message="|"/>
+        <echo message="|   +++ Tools +++"/>
+        <echo message="|-- lint                 (Lint all php files)"/>
+        <echo message=""/>
+    </target>
+
+    <!-- ++++++++++++++++++++++++++++++++++++++++++ -->
+    <!-- | Build                                    -->
+    <!-- ++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <!-- run the build -->
+    <target name="build" depends="cleanup, prepare">
+        <!-- get all the dependencies necessary for the build -->
+        <antcall target="dependencies"/>
+        <!-- ok, looks good - now run all the tests -->
+        <antcall target="tests"/>
+        <!-- great, no errors - now we should generate some cool quality metrics -->
+        <antcall target="metrics"/>
+    </target>
+
+    <!-- fetch dependencies -->
+    <target name="dependencies">
+        <antcall target="composer"/>
+    </target>
+
+    <!-- run tests -->
+    <target name="tests">
+        <!-- when there is a syntax error we're failing right at the beginning -->
+        <antcall target="lint"/>
+        <!-- ahh boy, the unit tests -->
+        <antcall target="phpunit-full"/>
+    </target>
+
+    <!-- generate metrics -->
+    <target name="metrics">
+        <antcall target="phploc"/>
+        <antcall target="phpcpd"/>
+        <antcall target="phpcs"/>
+        <antcall target="phpmd"/>
+    </target>
+
+    <!-- cleanup -->
+    <target name="cleanup">
+        <delete dir="${basedir}/build"/>
+    </target>
+
+    <!-- prepare -->
+    <target name="prepare">
+        <mkdir dir="${basedir}/build"/>
+    </target>
+
+    <!-- ++++++++++++++++++++++++++++++++++++++++++ -->
+    <!-- | Composer                                 -->
+    <!-- ++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <!-- main target -->
+    <target name="composer" depends="composer-download, composer-install"/>
+
+    <!-- preconditions -->
+    <target name="composer-preconditions">
+        <available file="${basedir}/composer.phar" property="binary.present"/>
+        <available file="${basedir}/vendor" property="vendor.present"/>
+    </target>
+
+    <!-- download the latest composer release -->
+    <target name="composer-download" depends="composer-preconditions" unless="binary.present">
+        <exec dir="${basedir}" executable="wget">
+            <arg value="https://getcomposer.org/installer"/>
+        </exec>
+        <exec dir="${basedir}" executable="php">
+            <arg value="installer"/>
+        </exec>
+        <delete file="${basedir}/installer"/>
+    </target>
+
+    <!-- install dependencies -->
+    <target name="composer-install" depends="composer-preconditions"> <!-- unless="vendor.present" -->
+        <exec dir="${basedir}" executable="php">
+            <arg value="composer.phar"/>
+            <arg value="install"/>
+        </exec>
+    </target>
+
+    <!-- update dependencies and generate new lockfile-->
+    <target name="composer-update" depends="composer-preconditions">
+        <exec dir="${basedir}" executable="php">
+            <arg value="composer.phar"/>
+            <arg value="update"/>
+        </exec>
+    </target>
+
+    <!-- cleanup -->
+    <target name="composer-cleanup">
+        <delete dir="${basedir}/vendor"/>
+        <delete file="${basedir}/composer.phar"/>
+    </target>
+
+    <!-- ++++++++++++++++++++++++++++++++++++++++++ -->
+    <!-- | PHP-Unit                                 -->
+    <!-- ++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <!-- main target -->
+    <target name="phpunit" depends="phpunit-full"/>
+
+    <!-- create necessary directories -->
+    <target name="phpunit-prepare">
+        <mkdir dir="${basedir}/build/phpunit"/>
+        <mkdir dir="${basedir}/build/coverage"/>
+    </target>
+
+    <!-- run all tests -->
+    <target name="phpunit-tests">
+        <exec dir="${basedir}/src/Tests" executable="${basedir}/vendor/bin/phpunit" failonerror="true">
+            <arg line="--verbose --stderr"/>
+            <arg line="."/>
+        </exec>
+    </target>
+
+    <!-- run all tests and generate logs / code coverage -->
+    <target name="phpunit-full" depends="phpunit-prepare">
+        <exec dir="${basedir}/src/Tests" executable="${basedir}/vendor/bin/phpunit" failonerror="true">
+            <arg line="--verbose --stderr"/>
+            <arg line="--log-junit ${basedir}/build/phpunit/phpunit.xml"/>
+            <arg line="--coverage-html ${basedir}/build/coverage"/>
+            <arg line="."/>
+        </exec>
+    </target>
+
+    <!-- ++++++++++++++++++++++++++++++++++++++++++ -->
+    <!-- | PHP Lines of Code                        -->
+    <!-- ++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <!-- create necessary directories -->
+    <target name="phploc-prepare">
+        <mkdir dir="${basedir}/build/phploc"/>
+    </target>
+
+    <!-- generate lines of code metric -->
+    <target name="phploc" depends="phploc-prepare">
+        <exec dir="${basedir}" executable="${basedir}/vendor/bin/phploc">
+            <arg value="--log-xml"/>
+            <arg value="${basedir}/build/phploc/phploc.xml"/>
+            <arg path="${basedir}/src"/>
+        </exec>
+    </target>
+
+    <!-- ++++++++++++++++++++++++++++++++++++++++++ -->
+    <!-- | PHP Copy-Paste-Detector                  -->
+    <!-- ++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <!-- create necessary directories -->
+    <target name="phpcpd-prepare">
+        <mkdir dir="${basedir}/build/phpcpd"/>
+    </target>
+
+    <!-- run copy paste detector -->
+    <target name="phpcpd" depends="phpcpd-prepare">
+        <exec dir="${basedir}" executable="${basedir}/vendor/bin/phpcpd">
+            <arg value="--log-pmd"/>
+            <arg path="${basedir}/build/phpcpd/phpcpd.xml"/>
+            <arg path="${basedir}/src"/>
+        </exec>
+    </target>
+
+    <!-- ++++++++++++++++++++++++++++++++++++++++++ -->
+    <!-- | PHP Code-Sniffer                         -->
+    <!-- ++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <!-- create necessary directories -->
+    <target name="phpcs-prepare">
+        <mkdir dir="${basedir}/build/phpcs"/>
+    </target>
+
+    <!-- generate code sniffer metric -->
+    <target name="phpcs" depends="phpcs-prepare">
+        <exec dir="${basedir}" executable="${basedir}/vendor/bin/phpcs">
+            <arg value="--standard=PSR2"/>
+            <arg value="--extensions=php"/>
+            <arg value="-n"/>
+            <arg value="--report=checkstyle"/>
+            <arg value="--report-file=${basedir}/build/phpcs/phpcs-checkstyle.xml"/>
+            <arg path="${basedir}/src"/>
+        </exec>
+    </target>
+
+    <!-- ++++++++++++++++++++++++++++++++++++++++++ -->
+    <!-- | PHP Mess-Detector                        -->
+    <!-- ++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <!-- create necessary directories -->
+    <target name="phpmd-prepare">
+        <mkdir dir="${basedir}/build/phpmd"/>
+    </target>
+
+    <!-- generate mess detector metric -->
+    <target name="phpmd" depends="phpmd-prepare">
+        <exec dir="${basedir}" executable="${basedir}/vendor/bin/phpmd">
+            <arg path="${basedir}/src"/>
+            <arg value="xml"/>
+            <arg value="cleancode,codesize,controversial,design,naming,unusedcode"/>
+            <arg value="--reportfile"/>
+            <arg value="${basedir}/build/phpmd/phpmd.xml"/>
+        </exec>
+    </target>
+
+    <!-- ++++++++++++++++++++++++++++++++++++++++++ -->
+    <!-- | Lint                                     -->
+    <!-- ++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <!-- check syntax of all php files in src/ directory -->
+    <target name="lint">
+        <apply executable="php" failonerror="true">
+            <arg value="-l"/>
+            <fileset dir="${basedir}">
+                <include name="**/*.php"/>
+                <exclude name="**/vendor/**"/>
+            </fileset>
+        </apply>
+    </target>
+
+    <!-- ++++++++++++++++++++++++++++++++++++++++++ -->
+    <!-- | PHP-Doc                                  -->
+    <!-- ++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <!-- create necessary directories -->
+    <target name="phpdoc-prepare">
+        <mkdir dir="${basedir}/build/phpdoc"/>
+    </target>
+
+</project>
