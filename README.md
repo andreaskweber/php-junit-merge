@@ -44,6 +44,80 @@ A simple call could look like this:
     
     Found and processed 3 files. Wrote merged content in 'result.xml'.
     
+## Example
+
+### Single Result Files
+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <testsuites>
+        <testsuite name="/Some_PHPUnit_Testsuite1" tests="2" assertions="2" failures="0" errors="0" time="1.234567">
+            <testsuite name="Unit\Testsuite2" file="/Unit/Testsuite1.php" tests="2" assertions="2" failures="0" errors="0" time="0.003623">
+                <testcase name="someRandomTestName1" class="Unit\Testsuite1" file="/Unit/Testsuite1.php" line="8" assertions="1" time="0.002003"/>
+                <testcase name="someRandomTestName2" class="Unit\Testsuite1" file="/Unit/Testsuite1.php" line="13" assertions="1" time="0.000795"/>
+            </testsuite>
+        </testsuite>
+    </testsuites>
+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <testsuites>
+        <testsuite name="/Some_PHPUnit_Testsuite2" tests="3" assertions="3" failures="0" errors="0" time="1.234567">
+            <testsuite name="Unit\Testsuite1" file="/Unit/Testsuite1.php" tests="3" assertions="3" failures="0" errors="0" time="0.003623">
+                <testcase name="someRandomTestName1" class="Unit\Testsuite1" file="/Unit/Testsuite1.php" line="8" assertions="1" time="0.002003"/>
+                <testcase name="someRandomTestName2" class="Unit\Testsuite1" file="/Unit/Testsuite1.php" line="13" assertions="1" time="0.000795"/>
+                <testcase name="someRandomTestName3" class="Unit\Testsuite1" file="/Unit/Testsuite1.php" line="18" assertions="1" time="0.000825"/>
+            </testsuite>
+        </testsuite>
+    </testsuites>
+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <testsuites>
+        <testsuite name="/Some_PHPUnit_Testsuite3" tests="6" assertions="6" failures="0" errors="0" time="1.234567">
+            <testsuite name="Unit\Testsuite3" file="/Unit/Testsuite1.php" tests="2" assertions="2" failures="0" errors="0" time="0.003623">
+                <testcase name="someRandomTestName1" class="Unit\Testsuite1" file="/Unit/Testsuite1.php" line="8" assertions="1" time="0.002003"/>
+                <testcase name="someRandomTestName2" class="Unit\Testsuite1" file="/Unit/Testsuite1.php" line="13" assertions="1" time="0.000795"/>
+            </testsuite>
+            <testsuite name="Unit\Testsuite4" file="/Unit/Testsuite1.php" tests="4" assertions="4" failures="0" errors="0" time="0.003623">
+                <testcase name="someRandomTestName1" class="Unit\Testsuite1" file="/Unit/Testsuite1.php" line="8" assertions="1" time="0.002003"/>
+                <testcase name="someRandomTestName2" class="Unit\Testsuite1" file="/Unit/Testsuite1.php" line="13" assertions="1" time="0.000795"/>
+                <testcase name="someRandomTestName3" class="Unit\Testsuite1" file="/Unit/Testsuite1.php" line="16" assertions="1" time="0.000795"/>
+                <testcase name="someRandomTestName4" class="Unit\Testsuite1" file="/Unit/Testsuite1.php" line="21" assertions="1" time="0.000795"/>
+            </testsuite>
+        </testsuite>
+    </testsuites>
+    
+### Merged Result File
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <testsuites>
+      <testsuite tests="11" assertions="11" failures="0" errors="0" time="3.703701">
+        <testsuite name="/Some_PHPUnit_Testsuite1" tests="2" assertions="2" failures="0" errors="0" time="1.234567">
+            <testsuite name="Unit\Testsuite2" file="/Unit/Testsuite1.php" tests="2" assertions="2" failures="0" errors="0" time="0.003623">
+                <testcase name="someRandomTestName1" class="Unit\Testsuite1" file="/Unit/Testsuite1.php" line="8" assertions="1" time="0.002003"/>
+                <testcase name="someRandomTestName2" class="Unit\Testsuite1" file="/Unit/Testsuite1.php" line="13" assertions="1" time="0.000795"/>
+            </testsuite>
+        </testsuite>
+        <testsuite name="/Some_PHPUnit_Testsuite2" tests="3" assertions="3" failures="0" errors="0" time="1.234567">
+            <testsuite name="Unit\Testsuite1" file="/Unit/Testsuite1.php" tests="3" assertions="3" failures="0" errors="0" time="0.003623">
+                <testcase name="someRandomTestName1" class="Unit\Testsuite1" file="/Unit/Testsuite1.php" line="8" assertions="1" time="0.002003"/>
+                <testcase name="someRandomTestName2" class="Unit\Testsuite1" file="/Unit/Testsuite1.php" line="13" assertions="1" time="0.000795"/>
+                <testcase name="someRandomTestName3" class="Unit\Testsuite1" file="/Unit/Testsuite1.php" line="18" assertions="1" time="0.000825"/>
+            </testsuite>
+        </testsuite>
+        <testsuite name="/Some_PHPUnit_Testsuite3" tests="6" assertions="6" failures="0" errors="0" time="1.234567">
+            <testsuite name="Unit\Testsuite3" file="/Unit/Testsuite1.php" tests="2" assertions="2" failures="0" errors="0" time="0.003623">
+                <testcase name="someRandomTestName1" class="Unit\Testsuite1" file="/Unit/Testsuite1.php" line="8" assertions="1" time="0.002003"/>
+                <testcase name="someRandomTestName2" class="Unit\Testsuite1" file="/Unit/Testsuite1.php" line="13" assertions="1" time="0.000795"/>
+            </testsuite>
+            <testsuite name="Unit\Testsuite4" file="/Unit/Testsuite1.php" tests="4" assertions="4" failures="0" errors="0" time="0.003623">
+                <testcase name="someRandomTestName1" class="Unit\Testsuite1" file="/Unit/Testsuite1.php" line="8" assertions="1" time="0.002003"/>
+                <testcase name="someRandomTestName2" class="Unit\Testsuite1" file="/Unit/Testsuite1.php" line="13" assertions="1" time="0.000795"/>
+                <testcase name="someRandomTestName3" class="Unit\Testsuite1" file="/Unit/Testsuite1.php" line="16" assertions="1" time="0.000795"/>
+                <testcase name="someRandomTestName4" class="Unit\Testsuite1" file="/Unit/Testsuite1.php" line="21" assertions="1" time="0.000795"/>
+            </testsuite>
+        </testsuite>
+      </testsuite>
+    </testsuites>
+    
 ## Attributions
 Thanks to [Sebastian Bergmann](https://gist.github.com/sebastianbergmann) for his gist [merge-phpunit-xml.php](https://gist.github.com/sebastianbergmann/4405658), which was the base and inspired me to develop this library.
 
