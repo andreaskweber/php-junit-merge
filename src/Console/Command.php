@@ -121,7 +121,10 @@ class Command extends AbstractCommand
      * Find all files to merge.
      *
      * @param string $directory
-     * return Finder
+     * @param array $names
+     * @param array $ignoreNames
+     *
+     * @return Finder
      */
     protected function findFiles($directory, array $names, array $ignoreNames)
     {
@@ -212,7 +215,7 @@ class Command extends AbstractCommand
      * @param fDOMDocument $dom
      * @param string       $filename
      *
-     * @return To-Do
+     * @return bool
      */
     protected function writeFile(fDOMDocument $dom, $filename)
     {

@@ -1,5 +1,5 @@
 {
-    "name": "andreas-weber/php-junit-merge",    
+    "name": "andreas-weber/php-junit-merge",
     "type": "library",
     "description": "PHP-Unit J-Unit XML File Merger",
     "homepage": "https://github.com/andreas-weber/php-junit-merge",
@@ -18,7 +18,7 @@
         "php": ">=5.3.3",
         "symfony/console": "2.5.*",
         "symfony/finder": "2.5.*",
-        "theseer/fdomdocument": "1.5.*"
+        "theseer/fdomdocument": "1.6.*"
     },
     "require-dev": {
         "phpunit/phpunit": "4.1.*",

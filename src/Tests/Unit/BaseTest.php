@@ -65,7 +65,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->fixtures = realpath(__DIR__ . '/Fixtures');
-        $this->resultFile = realpath($this->fixtures . '/../tmp/tmp.xml');
+        $this->resultFile = realpath($this->fixtures . '/../tmp') . '/tmp.xml';
         $this->application = new Application();
     }
 
