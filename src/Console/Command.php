@@ -106,7 +106,7 @@ class Command extends AbstractCommand
 
         // here is where the magic happens
         $files = $this->findFiles($directory, $names, $ignoreNames);
-        $outXml = $this->mergeFiles($files);
+        $outXml = $this->mergeFiles(realpath($directory), $files);
         $result = $this->writeFile($outXml, $fileOut);
 
         $output->writeln(
@@ -148,11 +148,12 @@ class Command extends AbstractCommand
     /**
      * Merge all files.
      *
+     * @param string $directory
      * @param Finder $finder
      *
      * @return fDOMDocument
      */
-    protected function mergeFiles(Finder $finder)
+    protected function mergeFiles($directory, Finder $finder)
     {
         $outXml = new fDOMDocument;
         $outXml->formatOutput = true;
@@ -183,6 +184,7 @@ class Command extends AbstractCommand
             }
         }
 
+        $outTestSuite->setAttribute('name', $directory);
         $outTestSuite->setAttribute('tests', $tests);
         $outTestSuite->setAttribute('assertions', $assertions);
         $outTestSuite->setAttribute('failures', $failures);
