@@ -4,7 +4,7 @@
  *
  * The MIT License (MIT)
  *
- * Copyright (c) 2014, Andreas Weber <code@andreas-weber.me>.
+ * Copyright (c) 2015, Andreas Weber <code@andreas-weber.me>.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,7 @@
  *
  * @package   phpjunitmerge
  * @author    Andreas Weber <code@andreas-weber.me>
- * @copyright 2014 Andreas Weber <code@andreas-weber.me>
+ * @copyright 2015 Andreas Weber <code@andreas-weber.me>
  * @license   http://opensource.org/licenses/MIT The MIT License
  * @since     File available since Release 1.0.0
  */
@@ -45,7 +45,7 @@ use TheSeer\fDOM\fDOMDocument;
  * Base command class.
  *
  * @author    Andreas Weber <code@andreas-weber.me>
- * @copyright 2014 Andreas Weber <code@andreas-weber.me>
+ * @copyright 2015 Andreas Weber <code@andreas-weber.me>
  * @license   http://opensource.org/licenses/MIT The MIT License
  * @link      https://github.com/andreas-weber/php-junit-merge
  * @since     Class available since Release 1.0.0
@@ -88,7 +88,6 @@ class Command extends AbstractCommand
             );
     }
 
-
     /**
      * Executes the current command.
      *
@@ -116,13 +115,12 @@ class Command extends AbstractCommand
         return (true === $result) ? 0 : 1;
     }
 
-
     /**
      * Find all files to merge.
      *
      * @param string $directory
-     * @param array $names
-     * @param array $ignoreNames
+     * @param array  $names
+     * @param array  $ignoreNames
      *
      * @return Finder
      */
@@ -143,7 +141,6 @@ class Command extends AbstractCommand
 
         return $finder;
     }
-
 
     /**
      * Merge all files.
@@ -194,7 +191,6 @@ class Command extends AbstractCommand
         return $outXml;
     }
 
-
     /**
      * Load an xml junit file.
      *
@@ -209,7 +205,6 @@ class Command extends AbstractCommand
 
         return $dom;
     }
-
 
     /**
      * Writes the merged result file.

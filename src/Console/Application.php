@@ -4,7 +4,7 @@
  *
  * The MIT License (MIT)
  *
- * Copyright (c) 2014, Andreas Weber <code@andreas-weber.me>.
+ * Copyright (c) 2015, Andreas Weber <code@andreas-weber.me>.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,7 @@
  *
  * @package   phpjunitmerge
  * @author    Andreas Weber <code@andreas-weber.me>
- * @copyright 2014 Andreas Weber <code@andreas-weber.me>
+ * @copyright 2015 Andreas Weber <code@andreas-weber.me>
  * @license   http://opensource.org/licenses/MIT The MIT License
  * @since     File available since Release 1.0.0
  */
@@ -34,17 +34,16 @@
 namespace AndreasWeber\PHPJUNITMERGE\Console;
 
 use Symfony\Component\Console\Application as ConsoleApplication;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\ArgvInput;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputDefinition;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Base application class.
  *
  * @author    Andreas Weber <code@andreas-weber.me>
- * @copyright 2014 Andreas Weber <code@andreas-weber.me>
+ * @copyright 2015 Andreas Weber <code@andreas-weber.me>
  * @license   http://opensource.org/licenses/MIT The MIT License
  * @link      https://github.com/andreas-weber/php-junit-merge
  * @since     Class available since Release 1.0.0
@@ -59,7 +58,6 @@ class Application extends ConsoleApplication
         parent::__construct('phpjunitmerge', '1.0.1');
     }
 
-
     /**
      * Gets the name of the command based on input.
      *
@@ -71,7 +69,6 @@ class Application extends ConsoleApplication
     {
         return 'phpjunitmerge';
     }
-
 
     /**
      * Gets the default commands that should always be available.
@@ -87,7 +84,6 @@ class Application extends ConsoleApplication
         return $defaultCommands;
     }
 
-
     /**
      * Overridden so that the application doesn't expect the command
      * name to be the first argument.
@@ -101,7 +97,6 @@ class Application extends ConsoleApplication
 
         return $inputDefinition;
     }
-
 
     /**
      * Runs the current application.

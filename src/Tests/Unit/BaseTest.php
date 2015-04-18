@@ -4,7 +4,7 @@
  *
  * The MIT License (MIT)
  *
- * Copyright (c) 2014, Andreas Weber <code@andreas-weber.me>.
+ * Copyright (c) 2015, Andreas Weber <code@andreas-weber.me>.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,25 +26,22 @@
  *
  * @package   phpjunitmerge
  * @author    Andreas Weber <code@andreas-weber.me>
- * @copyright 2014 Andreas Weber <code@andreas-weber.me>
+ * @copyright 2015 Andreas Weber <code@andreas-weber.me>
  * @license   http://opensource.org/licenses/MIT The MIT License
  * @since     File available since Release 1.0.0
  */
 
 namespace AndreasWeber\PHPJUNITMERGE\Tests\Unit;
 
-use TheSeer\fDOM\fDOMDOcument;
 use AndreasWeber\PHPJUNITMERGE\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Output\StreamOutput;
+use TheSeer\fDOM\fDOMDOcument;
 
 /**
  * Base tests class.
  *
  * @author    Andreas Weber <code@andreas-weber.me>
- * @copyright 2014 Andreas Weber <code@andreas-weber.me>
+ * @copyright 2015 Andreas Weber <code@andreas-weber.me>
  * @license   http://opensource.org/licenses/MIT The MIT License
  * @link      https://github.com/andreas-weber/php-junit-merge
  * @since     Class available since Release 1.0.0
@@ -58,7 +55,6 @@ class BaseTest extends \PHPUnit_Framework_TestCase
     private $output;
     private $statusCode;
 
-
     /**
      * setUp()
      */
@@ -69,14 +65,13 @@ class BaseTest extends \PHPUnit_Framework_TestCase
         $this->application = new Application();
     }
 
-
     /**
      * Tests if merging multiple files works as expected.
      */
     public function testIfMergingWorks()
     {
         $params = array(
-            'dir'  => $this->fixtures,
+            'dir' => $this->fixtures,
             'file' => $this->resultFile
         );
 
@@ -90,7 +85,6 @@ class BaseTest extends \PHPUnit_Framework_TestCase
             $actual->__toString()
         );
     }
-
 
     /**
      * Load a testfile.
@@ -106,7 +100,6 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 
         return $dom;
     }
-
 
     /**
      * Executes the application.

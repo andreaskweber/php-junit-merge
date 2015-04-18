@@ -4,7 +4,7 @@
  *
  * The MIT License (MIT)
  *
- * Copyright (c) 2014, Andreas Weber <code@andreas-weber.me>.
+ * Copyright (c) 2015, Andreas Weber <code@andreas-weber.me>.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,7 @@
  *
  * @package   phpjunitmerge
  * @author    Andreas Weber <code@andreas-weber.me>
- * @copyright 2014 Andreas Weber <code@andreas-weber.me>
+ * @copyright 2015 Andreas Weber <code@andreas-weber.me>
  * @license   http://opensource.org/licenses/MIT The MIT License
  * @since     File available since Release 1.0.0
  */
