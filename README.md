@@ -13,7 +13,7 @@ Simply add a dependency on `andreas-weber/php-junit-merge` to your project's `co
 After updating dependencies by composer a new binary `php-junit-merge` is available for usage.
 
     root@dev:~/projects/sample/vendor/bin ./phpjunitmerge
-    phpjunitmerge 1.0.0 by Andreas Weber
+    phpjunitmerge 1.0.2 by Andreas Weber
     
     Usage:
      phpjunitmerge [--names="..."] [--ignore="..."] dir file
@@ -23,15 +23,15 @@ After updating dependencies by composer a new binary `php-junit-merge` is availa
      file                  The target file in which the merged result should be written
     
     Options:
-     --names               A comma-separated list of file names to check (default: ["*.xml"])
-     --ignore              A comma-separated list of file names to ignore (default: ["result.xml"])
-     --help (-h)           Display this help message.
-     --quiet (-q)          Do not output any message.
+     --names               A comma-separated list of file names to check (default: "*.xml")
+     --ignore              A comma-separated list of file names to ignore (default: "result.xml")
+     --help (-h)           Display this help message
+     --quiet (-q)          Do not output any message
      --verbose (-v|vv|vvv) Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
-     --version (-V)        Display this application version.
-     --ansi                Force ANSI output.
-     --no-ansi             Disable ANSI output.
-     --no-interaction (-n) Do not ask any interactive question.
+     --version (-V)        Display this application version
+     --ansi                Force ANSI output
+     --no-ansi             Disable ANSI output
+     --no-interaction (-n) Do not ask any interactive question
 
 
 The binary expects at least two parameters:
