@@ -55,7 +55,7 @@ class Application extends ConsoleApplication
      */
     public function __construct()
     {
-        parent::__construct('phpjunitmerge', '1.0.2');
+        parent::__construct('phpjunitmerge', '1.0.3');
     }
 
     /**
