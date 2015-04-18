@@ -12,13 +12,16 @@ ehthumbs.db
 Icon?
 Thumbs.db
 
+# Vagrant
+/.vagrant
+
 # Build files
 /build
 
 # Composer
 /composer.phar
 /vendor
-/composer.lock
 
 # Misc
 phpunit.xml
+phinx.yml

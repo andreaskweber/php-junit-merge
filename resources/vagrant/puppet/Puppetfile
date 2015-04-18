@@ -1,0 +1,24 @@
+forge 'http://forge.puppetlabs.com'
+
+#
+# Modules from the Puppet Forge
+#
+
+mod 'puppetlabs/stdlib',    '4.3.2'
+mod 'puppetlabs/apt',       '1.6.0'
+mod 'puppetlabs/ntp',       '3.2.1'
+mod 'example42/puppi',      '2.1.10'
+mod 'example42/timezone',   '2.0.11'
+
+#
+# Modules from GitHub
+#
+
+mod 'aw_branding',          :git => 'https://github.com/andreas-weber/puppet-branding.git'
+mod 'aw_packages',          :git => 'https://github.com/andreas-weber/puppet-packages.git'
+mod 'aw_time',              :git => 'https://github.com/andreas-weber/puppet-time.git'
+mod 'aw_editor',            :git => 'https://github.com/andreas-weber/puppet-editor.git'
+mod 'aw_environment',       :git => 'https://github.com/andreas-weber/puppet-environment.git'
+mod 'aw_apt_dotdeb',        :git => 'https://github.com/andreas-weber/puppet-apt-dotdeb.git'
+mod 'aw_php',               :git => 'https://github.com/andreas-weber/puppet-php.git'
+mod 'aw_composer',          :git => 'https://github.com/andreas-weber/puppet-composer.git'

@@ -1,0 +1,8 @@
+---
+:backends:
+  - yaml
+:yaml:
+  :datadir: '/vagrant/resources/vagrant'
+:hierarchy:
+  - config
+:logger: console
