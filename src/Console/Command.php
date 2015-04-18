@@ -78,14 +78,14 @@ class Command extends AbstractCommand
                 null,
                 InputOption::VALUE_REQUIRED,
                 'A comma-separated list of file names to check',
-                array('*.xml')
+                '*.xml'
             )
             ->addOption(
                 'ignore',
                 null,
                 InputOption::VALUE_REQUIRED,
                 'A comma-separated list of file names to ignore',
-                array('result.xml')
+                'result.xml'
             );
     }
 
