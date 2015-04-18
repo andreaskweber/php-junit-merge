@@ -20,6 +20,7 @@ Thumbs.db
 
 # Composer
 /composer.phar
+composer.lock
 /vendor
 
 # Misc
