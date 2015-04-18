@@ -101,8 +101,20 @@ class Command extends AbstractCommand
     {
         $directory = $input->getArgument('dir');
         $fileOut = $input->getArgument('file');
+
         $names = $input->getOption('names');
+        if ($names) {
+            $names = explode(',', $names);
+        } else {
+            $names = array();
+        }
+
         $ignoreNames = $input->getOption('ignore');
+        if ($ignoreNames) {
+            $ignoreNames = explode(',', $ignoreNames);
+        } else {
+            $ignoreNames = array();
+        }
 
         // here is where the magic happens
         $files = $this->findFiles($directory, $names, $ignoreNames);
