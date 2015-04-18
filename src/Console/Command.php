@@ -39,6 +39,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
 use TheSeer\fDOM\fDOMDocument;
 
 /**
@@ -124,7 +125,7 @@ class Command extends AbstractCommand
      *
      * @return Finder
      */
-    protected function findFiles($directory, array $names, array $ignoreNames)
+    private function findFiles($directory, array $names, array $ignoreNames)
     {
         $finder = new Finder();
         $finder->files()->in($directory);
@@ -150,7 +151,7 @@ class Command extends AbstractCommand
      *
      * @return fDOMDocument
      */
-    protected function mergeFiles($directory, Finder $finder)
+    private function mergeFiles($directory, Finder $finder)
     {
         $outXml = new fDOMDocument;
         $outXml->formatOutput = true;
@@ -167,7 +168,12 @@ class Command extends AbstractCommand
         $errors = 0;
         $time = 0;
 
+        /** @var SplFileInfo $file */
         foreach ($finder as $file) {
+            if ($this->isFileEmpty($file)) {
+                continue;
+            }
+
             $inXml = $this->loadFile($file->getRealpath());
             foreach ($inXml->query('//testsuites/testsuite') as $inElement) {
                 $outElement = $outXml->importNode($inElement, true);
@@ -196,14 +202,26 @@ class Command extends AbstractCommand
      *
      * @param string $filename
      *
-     * @return fDOMDOcument
+     * @return fDOMDocument
      */
-    protected function loadFile($filename)
+    private function loadFile($filename)
     {
         $dom = new fDOMDocument();
         $dom->load($filename);
 
         return $dom;
+    }
+
+    /**
+     * Checks if a file is empty.
+     *
+     * @param SplFileInfo $file
+     *
+     * @return bool
+     */
+    private function isFileEmpty(SplFileInfo $file)
+    {
+        return $file->getSize() > 0 ? false : true;
     }
 
     /**
@@ -214,7 +232,7 @@ class Command extends AbstractCommand
      *
      * @return bool
      */
-    protected function writeFile(fDOMDocument $dom, $filename)
+    private function writeFile(fDOMDocument $dom, $filename)
     {
         $dom->formatOutput = true;
         $result = $dom->save($filename);

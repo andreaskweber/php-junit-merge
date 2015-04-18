@@ -70,14 +70,16 @@ class BaseTest extends \PHPUnit_Framework_TestCase
      */
     public function testIfMergingWorks()
     {
+        $fixtures = $this->fixtures . '/normal';
+
         $params = array(
-            'dir' => $this->fixtures,
+            'dir' => $fixtures,
             'file' => $this->resultFile
         );
 
         $this->runApplication($params);
 
-        $expected = $this->loadFile($this->fixtures . '/result.xml');
+        $expected = $this->loadFile($fixtures . '/result.xml');
         $actual = $this->loadFile($this->resultFile);
 
         $this->assertEquals(
@@ -87,16 +89,40 @@ class BaseTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Load a testfile.
+     * Tests if merging multiple files works as expected.
+     * When an empty file is given, it should be skipped.
+     */
+    public function testIfMergingWithEmptyFilesWorks()
+    {
+        $fixtures = $this->fixtures . '/empty-file';
+
+        $params = array(
+            'dir' => $fixtures,
+            'file' => $this->resultFile
+        );
+
+        $this->runApplication($params);
+
+        $expected = $this->loadFile($fixtures . '/result.xml');
+        $actual = $this->loadFile($this->resultFile);
+
+        $this->assertEquals(
+            $expected->__toString(),
+            $actual->__toString()
+        );
+    }
+
+    /**
+     * Load a test file.
      *
      * @param string $filename
      *
-     * @return fDOMDOcument
+     * @return fDOMDocument
      */
-    protected function loadFile($filename)
+    private function loadFile($filename)
     {
         $dom = new fDOMDOcument();
-        $dom->load($this->fixtures . '/' . $filename);
+        $dom->load($filename);
 
         return $dom;
     }
