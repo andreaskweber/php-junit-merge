@@ -188,7 +188,17 @@ class Command extends AbstractCommand
 
             $inXml = $this->loadFile($file->getRealpath());
             foreach ($inXml->query('//testsuites/testsuite') as $inElement) {
+
+                $inName = $inElement->getAttribute('name');
+                $outName = $inName;
+                $suffix = 2;
+                while ($outTestSuite->query('//testsuite[@name="' . $outName . '"]')->length !== 0) {
+                    $outName = $inName . '_' . $suffix;
+                    $suffix++;
+                }
+
                 $outElement = $outXml->importNode($inElement, true);
+                $outElement->setAttribute('name', $outName);
                 $outTestSuite->appendChild($outElement);
 
                 $tests += $inElement->getAttribute('tests');
