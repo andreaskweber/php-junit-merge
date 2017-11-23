@@ -32,6 +32,7 @@ After updating dependencies by composer a new binary `php-junit-merge` is availa
      --ansi                Force ANSI output
      --no-ansi             Disable ANSI output
      --no-interaction (-n) Do not ask any interactive question
+     --no-suffix           Do not add suffix for test suites with duplicate names
 
 
 The binary expects at least two parameters:

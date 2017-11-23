@@ -86,7 +86,14 @@ class Command extends AbstractCommand
                 InputOption::VALUE_REQUIRED,
                 'A comma-separated list of file names to ignore',
                 'result.xml'
-            );
+            )
+			->addOption(
+				'no-suffix',
+				null,
+				InputOption::VALUE_NONE,
+				'Do not add suffix for test suites with duplicate names',
+				null
+			);
     }
 
     /**
@@ -116,9 +123,10 @@ class Command extends AbstractCommand
             $ignoreNames = array();
         }
 
+		$noSuffix = $input->hasParameterOption('--no-suffix');
         // here is where the magic happens
         $files = $this->findFiles($directory, $names, $ignoreNames);
-        $outXml = $this->mergeFiles(realpath($directory), $files);
+        $outXml = $this->mergeFiles(realpath($directory), $files, $noSuffix);
         $result = $this->writeFile($outXml, $fileOut);
 
         $output->writeln(
@@ -160,10 +168,11 @@ class Command extends AbstractCommand
      *
      * @param string $directory
      * @param Finder $finder
+	 * @param bool $noSuffix
      *
      * @return fDOMDocument
      */
-    private function mergeFiles($directory, Finder $finder)
+    private function mergeFiles($directory, Finder $finder, $noSuffix)
     {
         $outXml = new fDOMDocument;
         $outXml->formatOutput = true;
@@ -189,16 +198,20 @@ class Command extends AbstractCommand
             $inXml = $this->loadFile($file->getRealpath());
             foreach ($inXml->query('//testsuites/testsuite') as $inElement) {
 
-                $inName = $inElement->getAttribute('name');
-                $outName = $inName;
-                $suffix = 2;
-                while ($outTestSuite->query('//testsuite[@name="' . $outName . '"]')->length !== 0) {
-                    $outName = $inName . '_' . $suffix;
-                    $suffix++;
-                }
+				if (!$noSuffix) {
+					$inName = $inElement->getAttribute('name');
+					$outName = $inName;
+					$suffix = 2;
+					while ($outTestSuite->query('//testsuite[@name="' . $outName . '"]')->length !== 0) {
+						$outName = $inName . '_' . $suffix;
+						$suffix++;
+					}
+				}
 
                 $outElement = $outXml->importNode($inElement, true);
-                $outElement->setAttribute('name', $outName);
+				if (!$noSuffix) {
+					$outElement->setAttribute('name', $outName);
+				}
                 $outTestSuite->appendChild($outElement);
 
                 $tests += $inElement->getAttribute('tests');
