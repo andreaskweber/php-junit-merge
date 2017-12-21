@@ -13,7 +13,7 @@ Simply add a dependency on `andreas-weber/php-junit-merge` to your project's `co
 After updating dependencies by composer a new binary `php-junit-merge` is available for usage.
 
     root@dev:~/projects/sample/vendor/bin ./phpjunitmerge
-    phpjunitmerge 1.0.3 by Andreas Weber
+    phpjunitmerge 1.0.4 by Andreas Weber
     
     Usage:
      phpjunitmerge [--names="..."] [--ignore="..."] dir file
@@ -32,6 +32,7 @@ After updating dependencies by composer a new binary `php-junit-merge` is availa
      --ansi                Force ANSI output
      --no-ansi             Disable ANSI output
      --no-interaction (-n) Do not ask any interactive question
+     --no-suffix           Do not add suffix for test suites with duplicate names
 
 
 The binary expects at least two parameters:
