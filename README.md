@@ -13,7 +13,7 @@ Simply add a dependency on `andreas-weber/php-junit-merge` to your project's `co
 After updating dependencies by composer a new binary `php-junit-merge` is available for usage.
 
     root@dev:~/projects/sample/vendor/bin ./phpjunitmerge
-    phpjunitmerge 1.0.4 by Andreas Weber
+    phpjunitmerge 1.0.5 by Andreas Weber
     
     Usage:
      phpjunitmerge [--names="..."] [--ignore="..."] dir file
