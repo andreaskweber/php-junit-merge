@@ -15,7 +15,7 @@
         "issues": "https://github.com/andreas-weber/php-junit-merge/issues"
     },
     "require": {
-        "php": ">=5.3.3",
+        "php": ">=5.5",
         "symfony/console": "^3.0|^4.0",
         "symfony/finder": "^3.0|^4.0",
         "theseer/fdomdocument": "1.6.*"
