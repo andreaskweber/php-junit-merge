@@ -214,11 +214,11 @@ class Command extends AbstractCommand
 				}
                 $outTestSuite->appendChild($outElement);
 
-                $tests += $inElement->getAttribute('tests');
-                $assertions += $inElement->getAttribute('assertions');
-                $failures += $inElement->getAttribute('failures');
-                $errors += $inElement->getAttribute('errors');
-                $time += $inElement->getAttribute('time');
+                $tests += $inElement->hasAttribute('tests') ? $inElement->getAttribute('tests') : 0;
+                $assertions += $inElement->hasAttribute('assertions') ? $inElement->getAttribute('assertions') : 0;
+                $failures += $inElement->hasAttribute('failures') ? $inElement->getAttribute('failures') : 0;
+                $errors += $inElement->hasAttribute('errors') ? $inElement->getAttribute('errors') : 0;
+                $time += $inElement->hasAttribute('time') ? $inElement->getAttribute('time') : 0;
             }
         }
 
