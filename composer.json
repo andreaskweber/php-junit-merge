@@ -1,18 +1,23 @@
 {
-    "name": "andreas-weber/php-junit-merge",
+    "name": "oneserv/php-junit-merge",
     "type": "library",
     "description": "PHP-Unit J-Unit XML File Merger",
-    "homepage": "https://github.com/andreas-weber/php-junit-merge",
+    "homepage": "https://github.com/oneserv/php-junit-merge",
     "license": "MIT",
     "authors": [
         {
             "name": "Andreas Weber",
             "email": "code@andreas-weber.me",
             "role": "lead"
+        },
+        {
+            "name": "Timon Heuser",
+            "email": "heuser@bueromoebel-experte.de",
+            "role": "lead"
         }
     ],
     "support": {
-        "issues": "https://github.com/andreas-weber/php-junit-merge/issues"
+        "issues": "https://github.com/oneserv/php-junit-merge/issues"
     },
     "require": {
         "php": ">=5.6",
