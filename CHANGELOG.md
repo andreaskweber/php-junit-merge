@@ -14,3 +14,7 @@ This is the list of changes for the Version 1.0 release series.
 ## Version 1.0.2
 
 * Bump library version
+
+## Version 1.0.7
+
+* Add symfony/finder ^5.0 as OR dependency
