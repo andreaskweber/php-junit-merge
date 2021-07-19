@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="PHP_CodeSniffer 3.5.5" errors="0" tests="2" failures="0">
+    <testsuite name="Unit/Testsuite1.php" errors="0" tests="1" failures="0">
+        <testcase name="Unit/Testsuite1.php" />
+    </testsuite>
+    <testsuite name="Unit/Testsuite2.php" errors="0" tests="1" failures="0">
+        <testcase name="Unit/Testsuite2.php" />
+    </testsuite>
+</testsuites>
